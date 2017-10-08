@@ -5,7 +5,7 @@ The repository provides demo programs for implementations of artificial intellig
 
 I will enrich those implementations and descriptions from time to time. If you include any of my work into your website or project; please add a link to this repository and send me an email to let me know.
 
-All implementations are trying to separate algorithms from task domains which means you can levelrage the algorithms implementation into any other tasks you want. The hard code variable is avoid in all implementation. The definition of global variables will define in the very begining of programs.
+All implementations are trying to separate algorithms from task domains which means you can leverage the algorithms implementation into any other tasks you want. The hard code variable is avoid in all implementation. The definition of global variables will define in the very begining of programs.
 
 Your comments are welcome.
 Thanks,
