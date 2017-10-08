@@ -132,7 +132,7 @@ Propositional_Logic: A propositional logic operation class in CNF with DPLL and 
 
         The class will check a propositional logic sentence is satisfy or not.
 ```
-    
+
 ```python
 Prop_KB: A knowledge base can be Ask, Tell in propositional logic by CNF.
 
@@ -176,7 +176,7 @@ AND = '^'
 OR = 'v'
 NOT = '~'
 ```
-* The implement add one more constraint. All tasks have to be done in 2 minutes. Below parameters can help you to define the resource (time/seconds) for each process. Due to the 
+* The implement add one more constraint. All tasks have to be done in 2 minutes. Below parameters can help you to define the resource (time/seconds) for each process. According to the default setting below, if the DPLL cannot find a confirmation in 70 seconds, the program will try WalkSAt to get a solution in 49 seconds.
 ```
 RESOURCE_DPLL = 70
 RESOURCE_WALKSAT = 49
