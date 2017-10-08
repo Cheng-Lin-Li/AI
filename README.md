@@ -19,7 +19,7 @@ Thanks,
 
 
 ## Reference:
-* Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (AIMA). Prentice Hall, 3rd Edition
+* Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (AIMA). Prentice Hall, 3rd Edition. [http://aima.cs.berkeley.edu/](http://aima.cs.berkeley.edu/)
 * AIMA reference code, aimacode/aima-python : https://github.com/aimacode/aima-python
 
 
