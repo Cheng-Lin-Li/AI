@@ -1,7 +1,7 @@
 # Artificial Intelligence ( AI )
-Implementations of some classical Artificial Intelligence algorithm by Python 3
+Implementations of some classical Artificial Intelligence algorithm by Python 2.7
 
-The repository provides demo programs for implementations of artificial intelligence algorithms by Python 3. I hope these programs will help people who would like to understand the intelligence theories via implementations.
+The repository provides demo programs for implementations of artificial intelligence algorithms by Python 2.7. I hope these programs will help people who would like to understand the intelligence theories via implementations.
 
 I will enrich those implementations and descriptions from time to time. If you include any of my work into your website or project; please add a link to this repository and send me an email to let me know.
 
