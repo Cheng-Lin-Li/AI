@@ -1,59 +1,59 @@
-## This is an implementation of Propositional Logic Resolution, Walk SAT, and Propositional Knowledge Base Algorithms in Python 3
+## This is an implementation of Propositional Logic Resolution, WalkSAT, and Propositional Knowledge Base Algorithms in Python 3
 ## The task:
 
-In this implementation, the program determines the minimax value for given positions of the Reversi game, using the Alpha-Beta pruning algorithm with positional weight evaluation functions.
+This implementation wants to arrange the wedding seating for a certain number of guests in a hall. The hall has a certain number of tables for seating. 
 
-### Rules of the Game
-* The rules of the Reversi game can be found at [http://en.wikipedia.org/wiki/Reversi](http://en.wikipedia.org/wiki/Reversi) and 
-interactive examples can be found at [http://www.samsoft.org.uk/reversi/](http://www.samsoft.org.uk/reversi/). 
-In the Othello version of this game, the game begins with four pieces (two black, two white) placed right in the middle of an 8x8 grid, 
-with the same-colored pieces on a diagonal with each other (see the left side of Figure 1). 
-A move of a player can be either a valid move or pass move.
+### Rules of the Wedding
+* Some pairs of guests are couples or close Friends (F) and want to sit together at the same table. 
+* Some other pairs of guests are Enemies (E) and must be separated into different tables. 
+* The rest of the pairs are Indifferent (I) to each other and do not mind sitting together or not. 
+* However, each pair of guests can have only one relationship, (F), (E) or (I). 
 
-* The Alpha-Beta algorithm (Figure 5.7, AIMA 3 rd edition) determines the depth-bounded minimax values of given game positions. 
-the program will take the input from the file input.txt, and print out its output to the file output.txt. 
-Each input of your program contains a game position (including the board state and the player to move) and a search cut-off depth D, 
-and the program should output the corresponding information after running an Alpha-Beta search of depth D. 
-That is, the leaf nodes of the corresponding game tree should be either a game position after exactly D moves 
-(alternating between Black and White) or an end-game position after less than D moves. 
-A leaf node is evaluated by the following evaluation function:
+The program must find a seating arrangement that satisfies all the constraints.
 
-### Evaluation function: positional weights 
+### SAT Encoding
 
-In this evaluation function, each cell i of the board has a certain strategic value Wi. 
-For example, the corners have higher strategic values than other cells. The map of the cell values is shown below.
-
+To decompose the arrangement task, there are three constraints the program has to satisfy: 
 ```text
-|  | a | b | c | d | e | f | g | h |
-|1 | 99| -8|  8|  6|  6|  8| -8| 99|
-|2 | -8|-24| -4| -3| -3| -4|-24| -8|
-|3 |  8| -4|  7|  4|  4|  7| -4|  8|
-|4 |  6| -3|  4|  0|  0|  4| -3|  6|
-|5 |  6| -3|  4|  0|  0|  4| -3|  6|
-|6 |  8| -4|  7|  4|  4|  7| -4|  8|
-|7 | -8|-24| -4| -3| -3| -4|-24| -8|
-|8 | 99| -8|  8|  6|  6|  8| -8| 99|
+(a) Each guest should be seated at one and only one table. 
+(b) For any two guests who are Friends (F), you should seat them at the same table. 
+(c) For any two guests who are Enemies (E), you should seat them at different tables. 
 ```
 
-Given these “weights”, the evaluation function of a given game position s (with respects to a specific player) 
-can be computed by
+Note that, for simplicity, you do NOT need to consider the capacity constraint of a table. This means the size of each table is assumed to be large enough to seat all the guests.
 
-E(s) = Sum Wi - Sum Wj, where i belongs to player's cells and j belongs to opponent's cells
+The arrangement task can be encoded as a Boolean satisfaction problem. We introduce Boolean variables X mn to represent whether each guest m will be seated at a specific table n.
+The program constructs clauses and generate CNF sentence for each instance of the seating arrangement. 
 
-For example, the game position in the right side of Figure 4 is evaluated, with respect to Black, as E(s) = (4+0+0+0) - (0) = 4; while it is evaluated with respect to White as E(s) = (0) - (4+0+0+0) = -4.
+Suppose there are < M > guests in total, and there are < N > tables in the hall. 
+The implementation assumes each table has an unlimited capacity.
+The program has to express each of the above-mentioned constraints as clauses in CNF format.
 
-Note: The leaf-node values are always calculated by this evaluation function, even though it is an end-game position. Although this may not be a good estimation for the end-game nodes (and is a deviation from the “official” Reversi rules), you should comply with this rule for simplicity (so that you do not need to worry about possible ordering complications between terminal utility values and evaluation values at non-terminal nodes).
+### Programming Task: SAT Solver
 
-### Tie breaking and expansion order
+The program has to generate CNF sentences for an input instance of wedding seating arrangements. 
+The inputs include the number of guests < M>, the number of tables < N >, and a sparse representation of the relationship matrix R with elements Rij= 1 , -1 or 0 to represent whether guests i and j are Friends (F), Enemies (E) or Indifferent (I). 
 
-Ties between the legal moves are broken by handling the moves in positional order, that is, first favor cells in upper rows, and in the same row favoring cells in the left side. 
+The internal representation of CNF sentences are free format. The program will NOT input or output sentences for the user for this assignment. 
+
+In general, it is a good idea to use the most efficient representation possible, given the NP-complete nature of SAT. For instance, in Python, the program represent a CNF sentence as a list of clauses, and represent each clause as a list of literals.
+
+The program implements a SAT solver to find a satisfying assignment for any given CNF sentences. 
+
+In this assignment, the program implement a modified version of the PL-Resolution algorithm ( AIMA Figure 7.12 ). Modifications are necessary because it is using the algorithmfor a slightly different purpose than is explained in AIMA. 
+
+Here, the program is not looking to prove entailment of a particular query. Rather, it hopes to prove satisfiability. Thus, there is no need to add negated query clauses to the input clauses. In other words, the only input to the algorithm is the set of clauses that comprise a randomly generated sentence. As an additional consequence of the purpose, the outputs will be reversed compared to the outputs listed in AIMA’s pseudo code. That is to say, if the empty clause is derived at any point from the clauses of the input sentence, then the sentence is unsatisfiable. In this case, the function should return `false` and not `true` as the book specifies for this situation. In the opposite situation where the empty clause is never derived, the algorithm should return `true`, indicating that the sentence is satisfiable.
+
+The program implement the WalkSAT algorithm ( AIMA Figure 7.18 ) to search for a solution for an instance of wedding. There are many variants of this algorithm that exist, but this program implements an identical algorithm that described in AIMA. There are two open parameters associated with WalkSAT: <p> and <max_flips>.
+
+PL-Resolution is a sound and complete algorithm that can be used to determine satisfiability and unsatisfiability with certainty. On the other hand, WalkSAT can determine satisfiability (if it finds a model), but it cannot absolutely determine unsatisfiability. If the PL-Resolution determines the sentence is satisfiable, then you have to run your WalkSAT, and tune the parameters to find at least one solution.
 
 
 ## The implementation:
 
-Click [** Here **](https://github.com/Cheng-Lin-Li/AI/blob/master/Alpha-Beta_Pruning/Alpha-Beta_Pruning.py) to read the source code.
+Click [** Here **](https://github.com/Cheng-Lin-Li/AI/blob/master/Propositional_Logic/PL_Resolution_WalkSAT.py) to read the source code.
 
-#### Usage: python Alpha-Beta_Pruning.py	
+#### Usage: python PL_Resolution_WalkSAT.py	
 
 #### Input: A data file "input.txt" in the same folder. The file contains the relevant records.
 
@@ -62,69 +62,35 @@ Or just rename your input file to input.txt
 
 #### Output:
 
-<next state> <traverse log> where the traverse log requires 5 columns. Each column is separated by “,”. The fivecolumns are node, depth, minimax value, alpha, beta.
+A single line output `yes/no` to indicate whether the sentence is satisfiable or not. If the sentence can be satisfied, output `yes` in the first line, and then provide just one of the possible solutions. (Note that there may be more than one possible solution, but again, the task is to provide only one of them.) 
+
+Each line after “yes” contains the assigned table for a specific guest for the solution. For example, in the sample output, line 2 represents guest 1 has been assigned at table 2 . Please note that the output lines for assigning tables to guests should be in ascending order of indices (1,2,3,..., M). Lastly, If the sentence can not be satisfied, output only a single line `no`.
 
 
 ## Example Test Case:
 
-As an example, the following input instance asks to compute a depth-2 alpha-beta search from the starting game position: 
-```text
-X 
-
-2
-
-******** 
-******** 
-******** 
-***OX*** 
-***XO*** 
-******** 
-******** 
-********
+Sample Input 
+```
+4 2
+1 2 F 
+2 3 E
 ```
 
-and the corresponding output should be: 
+The first line contains two integers denoting the number of guests < M> and the number of tables < N> respectively. Each line following contains two integers representing the indices of a pair of guests and one character indicating whether they are Friends ( F) or Enemies ( E). The rest of the pairs are indifferent by default. For example, in the above sample input, there are 4 guests and 2 tables in total, and guest 1 and guest 2 are Friends, and guest 2 and guest 3 are Enemies.
 
-```text
-******** 
-******** 
-***X**** 
-***XX*** 
-***XO*** 
-******** 
-******** 
-********
-Node,Depth,Value,Alpha,Beta 
-root,0,-Infinity,-Infinity,Infinity 
-d3,1,Infinity,-Infinity,Infinity 
-c3,2,-3,-Infinity,Infinity 
-d3,1,-3,-Infinity,-3 
-e3,2,0,-Infinity,-3 
-d3,1,-3,-Infinity,-3 
-c5,2,0.0,-Infinity,-3 
-d3,1,-3,-Infinity,-3 
-root,0,-3,-3,Infinity 
-c4,1,Infinity,-3,Infinity 
-c3,2,-3,-3,Infinity 
-c4,1,-3,-3,-3
-root,0,-3,-3,Infinity 
-f5,1,Infinity,-3,Infinity
-f4,2,0,-3,Infinity 
-f5,1,0,-3,0 
-d6,2,0,-3,0 
-f5,1,0,-3,0 
-f6,2,-3,-3,0 
-f5,1,-3,-3,-3
-root,0,-3,-3,Infinity 
-e6,1,Infinity,-3,Infinity 
-f4,2,0,-3,Infinity 
-e6,1,0,-3,0 
-d6,2,0,-3,0 
-e6,1,0,-3,0 
-f6,2,-3,-3,0 
-e6,1,-3,-3,-3
-root,0,-3,-3,Infinity
+Sample Output 
 ```
+yes 
+1 2
+2 2 
+3 1 
+4 1
+```
+
+## Reference:
+* Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (AIMA). Prentice Hall, 3rd Edition. [http://aima.cs.berkeley.edu/](http://aima.cs.berkeley.edu/)
+* AIMA reference code, aimacode/aima-python : https://github.com/aimacode/aima-python
+* MIT open Course. [Resolution Theorem Proving: Propositional Logic](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002/lecture-notes/Lecture7FinalPart1.pdf)
 
 ## Notice:
 
