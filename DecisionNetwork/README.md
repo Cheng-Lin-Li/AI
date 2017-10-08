@@ -1,4 +1,4 @@
-## This is an implementation of Decision Network with Decision Nodes, Chance Nodes, and Utility Nodes Algorithms in Python 3
+## This is an implementation of Decision Network with Decision Nodes, Chance Nodes, and Utility Nodes Algorithms in Python 2.7
 
 An implementation to get probability of Decision node, or Utility Nodes. 
 
@@ -25,37 +25,120 @@ Click [** Here **](https://github.com/Cheng-Lin-Li/AI/blob/master/DecisionNetwor
 
 #### Usage: python DecisionNetwork.py	
 
-#### Input: A data file "input.txt" in the same folder. The file contains the relevant records.
+#### Input: A data file "input01.txt" in the same folder. The file contains the relevant records.
 
-You may redefine the input file name by changeig initial variable, INPUT_FILE = 'input.txt', in the code to any other file name you want.
-Or just rename your input file to input.txt
+* Example 1:
+
+You will be given a text file ending with a .txt extension. For example, the decision network would be represented by the following file, sample01.txt:
+
+```text
+( L )
+  |
+  V
+( N )     ( I )
+  |         |
+  \         /
+   > ( D ) <
+```
+
+(sample01.txt)
+```text
+P(N = +, I = -)
+P(D = + | L = +, I = +)
+******
+L
+0.4
+***
+N | L
+0.8 +
+0.3 -
+***
+I
+0.5
+***
+D | N I
+0.3 + +
+0.6 + -
+0.95 - +
+0.05 - - 
+```
+
+* Example 2:
+An example of a decision network having decision nodes and one utility node is given below, and it can be represented by sample 02.txt:
+
+```text
+( L )
+  |
+  V
+( N )     ( I )
+  |         |
+  \         /
+   > ( D ) <
+       |
+       V
+   <Utility> 
+```
+(sample02.txt)
+```text
+P(D = + | L = -, I = +)
+EU(I = +)
+EU(I = + | L = +)
+MEU(I)
+MEU(I | L = +)
+******
+L
+0.4
+***
+N | L
+0.8 +
+0.3 -
+***
+I
+decision
+***
+D | N I
+0.3 + +
+0.6 + -
+0.95 - +
+0.05 - -
+******
+utility | D
+100 +
+-10 -
+```
+
+
 
 #### Output:
 
-A single line output `yes/no` to indicate whether the sentence is satisfiable or not. If the sentence can be satisfied, output `yes` in the first line, and then provide just one of the possible solutions. (Note that there may be more than one possible solution, but again, the task is to provide only one of them.) 
+The result should be printed to a file called output.txt. Given the sample input above, the output content should be as follows:
 
-Each line after “yes” contains the assigned table for a specific guest for the solution. For example, in the sample output, line 2 represents guest 1 has been assigned at table 2 . Please note that the output lines for assigning tables to guests should be in ascending order of indices (1,2,3,..., M). Lastly, If the sentence can not be satisfied, output only a single line `no`.
+(output01 for input sample01.txt)
+0.25
+0.43
 
+(output02 for input sample02.txt)
+0.76
+59
+37
++ 59
+- 44
 
-## Example Test Case:
+For each query in the input file, your program should generate a corresponding result (one result per line) as the output. The result may have three forms:
 
-Sample Input 
-```
-4 2
-1 2 F 
-2 3 E
-```
+●	“P” query: A decimal value between 0 and 1, rounded to two decimals (for example, we want 0.395 to be 0.40):
+e.g.	0.40
+1)	“EU” query: An integer value:
+e.g.  	50
+2)	“MEU” query: One sign(“+” or “-” ) for each decision node, followed by an integer value representing the maximum expected utility, all separated with a single whitespace:
+e.g. 	+ 50
 
-The first line contains two integers denoting the number of guests < M> and the number of tables < N> respectively. Each line following contains two integers representing the indices of a pair of guests and one character indicating whether they are Friends ( F) or Enemies ( E). The rest of the pairs are indifferent by default. For example, in the above sample input, there are 4 guests and 2 tables in total, and guest 1 and guest 2 are Friends, and guest 2 and guest 3 are Enemies.
-
-Sample Output 
-```
-yes 
-1 2
-2 2 
-3 1 
-4 1
-```
+●	When there are multiple decisions, the order of decisions should be the same as in the query.
+e.g. 	Input:  MEU(I, L)
+●		Output:  + - 50
+●	The test cases will be designed so that there will always be one unique solution with MEU.
+●	For EU and MEU queries, all calculations should be done in decimal number accuracy, but the output expected utility value should be rounded to the nearest integer (for example, we want 3.5 to be rounded to 4).
+●	Don’t print additional whitespace after the value, or extra line break in the end.
 
 ## Program structure:
 
