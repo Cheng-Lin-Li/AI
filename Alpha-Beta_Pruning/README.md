@@ -3,7 +3,7 @@
 
 In this implementation, the program determines the minimax value for given positions of the Reversi game, using the Alpha-Beta pruning algorithm with positional weight evaluation functions.
 
-Rules of the Game
+### Rules of the Game
 * The rules of the Reversi game can be found at [http://en.wikipedia.org/wiki/Reversi](http://en.wikipedia.org/wiki/Reversi) and 
 interactive examples can be found at [http://www.samsoft.org.uk/reversi/](http://www.samsoft.org.uk/reversi/). 
 In the Othello version of this game, the game begins with four pieces (two black, two white) placed right in the middle of an 8x8 grid, 
@@ -18,21 +18,21 @@ That is, the leaf nodes of the corresponding game tree should be either a game p
 (alternating between Black and White) or an end-game position after less than D moves. 
 A leaf node is evaluated by the following evaluation function:
 
-* Evaluation function: positional weights 
+### Evaluation function: positional weights 
 
 In this evaluation function, each cell i of the board has a certain strategic value Wi. 
 For example, the corners have higher strategic values than other cells. The map of the cell values is shown below.
 
 ```text
-|-| a| b| c| d| e| f| g| h|
-|1|99|-8| 8| 6| 6| 8|-8|99|
-|2|-8|-24|-4|-3|-3|-4|-24|-8|
-|3| 8|-4| 7| 4| 4| 7|-4| 8|
-|4| 6|-3| 4| 0| 0| 4|-3| 6|
-|5| 6|-3| 4| 0| 0| 4|-3| 6|
-|6| 8|-4| 7| 4| 4| 7|-4| 8|
-|7|-8|-24|-4|-3|-3|-4|-24|-8|
-|8|99|-8| 8| 6| 6| 8|-8|99|
+|  | a | b | c | d | e | f | g | h |
+|1 | 99| -8|  8|  6|  6|  8| -8| 99|
+|2 | -8|-24| -4| -3| -3| -4|-24| -8|
+|3 |  8| -4|  7|  4|  4|  7| -4|  8|
+|4 |  6| -3|  4|  0|  0|  4| -3|  6|
+|5 |  6| -3|  4|  0|  0|  4| -3|  6|
+|6 |  8| -4|  7|  4|  4|  7| -4|  8|
+|7 | -8|-24| -4| -3| -3| -4|-24| -8|
+|8 | 99| -8|  8|  6|  6|  8| -8| 99|
 ```
 
 Given these “weights”, the evaluation function of a given game position s (with respects to a specific player) 
@@ -44,7 +44,7 @@ For example, the game position in the right side of Figure 4 is evaluated, with 
 
 Note: The leaf-node values are always calculated by this evaluation function, even though it is an end-game position. Although this may not be a good estimation for the end-game nodes (and is a deviation from the “official” Reversi rules), you should comply with this rule for simplicity (so that you do not need to worry about possible ordering complications between terminal utility values and evaluation values at non-terminal nodes).
 
-* Tie breaking and expansion order
+### Tie breaking and expansion order
 
 Ties between the legal moves are broken by handling the moves in positional order, that is, first favor cells in upper rows, and in the same row favoring cells in the left side. 
 
