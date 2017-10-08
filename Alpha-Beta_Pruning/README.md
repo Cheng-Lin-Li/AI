@@ -1,5 +1,4 @@
 ## This is an implementation of Alpha Beta Pruning Algorithm in Python 3
-
 ## The task:
 
 In this implementation, the program determines the minimax value for given positions of the Reversi game, using the Alpha-Beta pruning algorithm with positional weight evaluation functions.
@@ -24,16 +23,17 @@ A leaf node is evaluated by the following evaluation function:
 In this evaluation function, each cell i of the board has a certain strategic value Wi. 
 For example, the corners have higher strategic values than other cells. The map of the cell values is shown below.
 
-
-|-|a|b|c|d|e|f|g|h|
-|1|99|-8|8|6|6|8|-8|99|
+```text
+|-| a| b| c| d| e| f| g| h|
+|1|99|-8| 8| 6| 6| 8|-8|99|
 |2|-8|-24|-4|-3|-3|-4|-24|-8|
-|3|8|-4|7|4|4|7|-4|8|
-|4|6|-3|4|0|0|4|-3|6|
-|5|6|-3|4|0|0|4|-3|6|
-|6|8|-4|7|4|4|7|-4|8|
+|3| 8|-4| 7| 4| 4| 7|-4| 8|
+|4| 6|-3| 4| 0| 0| 4|-3| 6|
+|5| 6|-3| 4| 0| 0| 4|-3| 6|
+|6| 8|-4| 7| 4| 4| 7|-4| 8|
 |7|-8|-24|-4|-3|-3|-4|-24|-8|
-|8|99|-8|8|6|6|8|-8|99|
+|8|99|-8| 8| 6| 6| 8|-8|99|
+```
 
 Given these “weights”, the evaluation function of a given game position s (with respects to a specific player) 
 can be computed by
