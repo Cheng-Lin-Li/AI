@@ -1,4 +1,4 @@
-## This is an implementation of Propositional Logic Resolution, WalkSAT, and Propositional Knowledge Base Algorithms in Python 3
+## This is an implementation of Propositional Logic Resolution, Davis–Putnam–Logemann–Loveland (DPLL), WalkSAT,  and Propositional Knowledge Base Algorithms in Python 3
 ## The task:
 
 This implementation wants to arrange the wedding seating for a certain number of guests in a hall. The hall has a certain number of tables for seating. 
@@ -39,11 +39,13 @@ The internal representation of CNF sentences are free format. The program will N
 In general, it is a good idea to use the most efficient representation possible, given the NP-complete nature of SAT. For instance, in Python, the program represent a CNF sentence as a list of clauses, and represent each clause as a list of literals.
 
 
-The program implements a SAT solver to find a satisfying assignment for any given CNF sentences. 
+The program implements two SAT solver to find a satisfying assignment for any given CNF sentences. 
 
 In this assignment, the program implement a modified version of the PL-Resolution algorithm ( AIMA Figure 7.12 ). Modifications are necessary because it is using the algorithmfor a slightly different purpose than is explained in AIMA. 
 
 Here, the program is not looking to prove entailment of a particular query. Rather, it hopes to prove satisfiability. Thus, there is no need to add negated query clauses to the input clauses. In other words, the only input to the algorithm is the set of clauses that comprise a randomly generated sentence. As an additional consequence of the purpose, the outputs will be reversed compared to the outputs listed in AIMA’s pseudo code. That is to say, if the empty clause is derived at any point from the clauses of the input sentence, then the sentence is unsatisfiable. In this case, the function should return `false` and not `true` as the book specifies for this situation. In the opposite situation where the empty clause is never derived, the algorithm should return `true`, indicating that the sentence is satisfiable.
+
+The other implementation of SAT solver is Davis–Putnam–Logemann–Loveland (DPLL) algorithm. It provides better performance than PL-Resolution. You can switch the algorithm in global variable section `ALGORITHM = 'DPLL' # or 'PL_Resolution'`. It is a sound and complete algorithm.
 
 The program implement the WalkSAT algorithm ( AIMA Figure 7.18 ) to search for a solution for an instance of wedding. There are many variants of this algorithm that exist, but this program implements an identical algorithm that described in AIMA. There are two open parameters associated with WalkSAT: <p> and <max_flips>.
 
@@ -116,7 +118,7 @@ Propositional_Logic: A propositional logic operation class in CNF with DPLL and 
 
     Major Functions:
 
-    1. is_satisfiable(KB, algorithm = 'DPLL'): This implementation include DPLL and PL_Resolution algorithm to verify the satisfiability of the sentence.
+    1. is_satisfiable(KB, algorithm = 'DPLL'): This implementation include DPLL and PL_Resolution algorithm to verify the satisfiability of the sentence. You can switch the global variable, ALGORITHM = 'DPLL' # or 'PL_Resolution', to change it.
 
         You can choose either 'DPLL' or 'PL_Resolution' to switch the algorithm.
 
@@ -155,6 +157,29 @@ Wedding: A wedding arrangement class to solve a the question.
     4. If the KB is satisfiable, then get a model/solution by WalkSAT.
 
     5. Printing the results.
+```
+
+```python
+    def getWeddingRules(self):
+        # Every clause is 'OR' connect with each other clause, every sentence is 'AND' connect with each other sentence.
+        # atomic = [guest, table]
+        # CNF: (AvB) ^ (~C) = [{'A','B'}, {'~C'}]
+        #The outer list is a conjunction of clauses. Each inner list is a clause, i.e. a disjunction of literals.
+```
+
+## Global Variables:
+* You can switch the global variable, `ALGORITHM = 'DPLL' # or 'PL_Resolution'`, to change it.
+* Logic operation define as below:
+
+```python
+AND = '^'
+OR = 'v'
+NOT = '~'
+```
+* The implement add one more constraint. All tasks have to be done in 2 minutes. Below parameters can help you to define the resource (time/seconds) for each process. Due to the 
+```
+RESOURCE_DPLL = 70
+RESOURCE_WALKSAT = 49
 ```
 
 ## Reference:
