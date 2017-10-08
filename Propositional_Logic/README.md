@@ -1,4 +1,4 @@
-## This is an implementation of Propositional Logic Resolution, Davis–Putnam–Logemann–Loveland (DPLL), WalkSAT,  and Propositional Knowledge Base Algorithms in Python 3
+## This is an implementation of Propositional Logic Resolution, Davis–Putnam–Logemann–Loveland (DPLL), WalkSAT,  and Propositional Knowledge Base Algorithms in Python 2.7
 ## The task:
 
 This implementation wants to arrange the wedding seating for a certain number of guests in a hall. The hall has a certain number of tables for seating. 
