@@ -1,4 +1,4 @@
-## This is an implementation of Alpha Beta Pruning Algorithm in Python 3
+## This is an implementation of Alpha Beta Pruning Algorithm in Python 2.7
 ## The task:
 
 In this implementation, the program determines the minimax value for given positions of the Reversi game, using the Alpha-Beta pruning algorithm with positional weight evaluation functions.
