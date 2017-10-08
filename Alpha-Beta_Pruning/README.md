@@ -126,3 +126,6 @@ e6,1,-3,-3,-3
 root,0,-3,-3,Infinity
 ```
 
+## Notice:
+
+This code is just for your reference of the implementation. The code does not give a guarantee of 100% correctness.
