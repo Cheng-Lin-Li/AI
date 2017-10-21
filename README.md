@@ -12,9 +12,9 @@ Thanks,
 
 |Algorithm|Description|Link|
 |------|------|--------|
-|Alpha-Beta Pruning|By measuring early evaluation of each branch of a tree structure, Alpha-Beta pruning can help us to reduce the complexity of computation| [Source Code](https://github.com/Cheng-Lin-Li/AI/blob/master/Alpha-Beta_Pruning)|
-|Propositional Logic|How to get inferences (answers) via basic axioms and given restrictions / information? This implementation demostrates how the propositional logical algorithm can help us to answer a resource allocation question. This is an implementation of Resolution KB, logic, PL Resolution and WalkSAT in CNF for a wedding arrangement task . |[Source Code](https://github.com/Cheng-Lin-Li/AI/tree/master/Propositional_Logic)|
-|Decision Networks| Decisoin Networks aka influence diagrams which contain Bayesian Network as Chance nodes, Action choices via Decision nodes, and Outcome preferences via Utility node. This implementation just completes the Bayesian Network inference. |[Source Code](https://github.com/Cheng-Lin-Li/AI/tree/master/DecisionNetwork)|
+|[Alpha-Beta Pruning](https://github.com/Cheng-Lin-Li/AI/blob/master/Alpha-Beta_Pruning)|By measuring early evaluation of each branch of a tree structure, Alpha-Beta pruning can help us to reduce the complexity of computation| [Source Code](https://github.com/Cheng-Lin-Li/AI/blob/master/Alpha-Beta_Pruning/Alpha-Beta_Pruning.py)|
+|[Propositional Logic](https://github.com/Cheng-Lin-Li/AI/tree/master/Propositional_Logic)|How to get inferences (answers) via basic axioms and given restrictions / information? This implementation demostrates how the propositional logical algorithm can help us to answer a resource allocation question. This is an implementation of Resolution KB, logic, PL Resolution and WalkSAT in CNF for a wedding arrangement task . |[Source Code](https://github.com/Cheng-Lin-Li/AI/blob/master/Propositional_Logic/PL_Resolution_WalkSAT.py)|
+|[Decision Networks](https://github.com/Cheng-Lin-Li/AI/tree/master/DecisionNetwork)| Decisoin Networks aka influence diagrams which contain Bayesian Network as Chance nodes, Action choices via Decision nodes, and Outcome preferences via Utility node. This implementation just completes the Bayesian Network inference. |[Source Code](https://github.com/Cheng-Lin-Li/AI/blob/master/DecisionNetwork/DecisionNetwork.py)|
 
 
 
