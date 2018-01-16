@@ -17,7 +17,7 @@ Thanks,
 |[Decision Networks](https://github.com/Cheng-Lin-Li/AI/tree/master/DecisionNetwork)| Decisoin Networks aka influence diagrams which contain Bayesian Network as Chance nodes, Action choices via Decision nodes, and Outcome preferences via Utility node. This implementation just completes the Bayesian Network inference. |[Source Code](https://github.com/Cheng-Lin-Li/AI/blob/master/DecisionNetwork/DecisionNetwork.py)|
 
 
-## Reference:
+## Reference
 * Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (AIMA). Prentice Hall, 3rd Edition. [http://aima.cs.berkeley.edu/](http://aima.cs.berkeley.edu/)
 * AIMA reference code, aimacode/aima-python : https://github.com/aimacode/aima-python
 
