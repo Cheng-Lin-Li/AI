@@ -1,3 +1,4 @@
+
 # Artificial Intelligence ( AI )
 Implementations of some classical Artificial Intelligence algorithm by Python 2.7
 
@@ -37,5 +38,7 @@ Please note that the Cheng-Lin-Li's github does not guarantee the accuracy, rele
 
 ## Contact Information
 Cheng-Lin Li@University of Southern California
+
 chenglil@usc.edu or 
+
 clark.cl.li@gmail.com
